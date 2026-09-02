@@ -264,7 +264,7 @@ export default function App() {
 
             <section className="video-showcase section">
                 <SectionTitle eyebrow="AMIGO FLIX EM AÇÃO" subtitle="Veja a qualidade, o visual e a experiência em movimento">
-                 
+
                 </SectionTitle>
 
                 <div className="video-shell">
@@ -434,7 +434,7 @@ export default function App() {
                 <p className="pix-note">Pagamento via Pix — rápido e prático</p>
 
                 <div className="pricing-video-wrap">
-                    <div className="pricing-video-frame">
+                    {/* <div className="pricing-video-frame">
                         <iframe
                             src="https://www.youtube.com/embed/LOvrkjoDDcg?rel=0"
                             title="Vídeo de demonstração Amigo Flix"
@@ -442,7 +442,7 @@ export default function App() {
                             referrerPolicy="strict-origin-when-cross-origin"
                             allowFullScreen
                         />
-                    </div>
+                    </div> */}
                 </div>
 
                 <div className="plan-grid">
