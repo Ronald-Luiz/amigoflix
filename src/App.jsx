@@ -114,7 +114,7 @@ const faqs = [
     ["Preciso de TV a cabo ou antena?", "Não. Você só precisa de uma conexão com a internet e um dispositivo compatível."],
     ["Como funciona o teste grátis de 6 horas?", "Solicite pelo WhatsApp e receba o acesso para testar a qualidade antes de assinar."],
     ["Quais formas de pagamento são aceitas?", "O pagamento é feito via Pix, de forma rápida e prática."],
-    ["Posso assistir em mais de um dispositivo?", "Sim. Temos planos para uma, duas ou três telas simultâneas."],
+    // ["Posso assistir em mais de um dispositivo?", "Sim. Temos planos para uma, duas ou três telas simultâneas."],
     ["O que preciso para começar?", "Internet estável e um dispositivo compatível. Nossa equipe ajuda com toda a instalação."],
     ["E se travar?", "Nosso suporte especializado está disponível pelo WhatsApp para ajudar rapidamente."],
 ];
