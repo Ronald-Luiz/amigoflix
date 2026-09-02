@@ -27,6 +27,7 @@ import filmes from "./assets/filmes.webp";
 import esportes from "./assets/esportes.webp";
 import desenhos from "./assets/desenhos.webp";
 import shows from "./assets/shows.webp";
+import pix from "../public/icon/pix.png";
 
 const whatsappNumber = "5521982772334";
 const whatsapp = `https://wa.me/${whatsappNumber}`;
@@ -479,6 +480,8 @@ export default function App() {
                 <div className="pix-box">
                     <Zap />
                     <div>
+
+                        <img src={pix} alt="Pix" className="pix-icon" />
                         <h3>Pagamento via Pix</h3>
                         <p>Rápido e prático: você paga o Pix e a ativação é liberada na hora, direto pelo WhatsApp.</p>
                     </div>
