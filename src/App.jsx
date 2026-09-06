@@ -896,21 +896,32 @@ export default function App() {
             ================================================= */}
 
             <section className="trial">
+                <div className="trial-icon" aria-hidden="true">
+                    <Clock3 size={38} />
+                </div>
+
                 <h2>
                     Teste grátis por <em>6 horas</em>
                 </h2>
 
                 <p>
-                    Veja a qualidade na sua Smart TV, TV Box, computador,
-                    celular ou tablet. Solicite agora o seu teste!
+                    Solicite agora pelo WhatsApp, instale em poucos minutos e
+                    veja a qualidade na sua TV.
                 </p>
 
-                <ActionLink
-                    message="Olá, vim pelo site e quero solicitar meu teste grátis de 6 horas do Amigo Flix."
-                >
-                    <Sparkles />
-                    Solicitar Teste Grátis
-                </ActionLink>
+                <div className="trial-actions">
+                    <span className="trial-hours">
+                        <Clock3 size={16} />
+                        Liberação de testes: 8:30 às 22:00
+                    </span>
+
+                    <ActionLink
+                        message="Olá, vim pelo site e quero solicitar meu teste grátis de 6 horas do Amigo Flix."
+                    >
+                        <Sparkles size={18} />
+                        Solicitar Teste Grátis
+                    </ActionLink>
+                </div>
             </section>
 
             {/* =================================================
