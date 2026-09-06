@@ -16,9 +16,11 @@ import {
     Play,
     ShieldCheck,
     Smartphone,
+    Star,
     Sparkles,
     Tablet,
     Tv,
+    UsersRound,
     Wifi,
     Zap,
 } from "lucide-react";
@@ -436,6 +438,8 @@ export default function App() {
                 </a>
             </section>
 
+          
+
             {/* =================================================
                 APPS
             ================================================= */}
@@ -600,6 +604,55 @@ export default function App() {
                             </article>
                         ))}
                     </div>
+                </div>
+            </section>
+
+
+              {/* =================================================
+                ANIVERSÁRIO
+            ================================================= */}
+
+            <section className="anniversary section">
+                <div className="anniversary-copy">
+                    <p className="anniversary-kicker">ESTAMOS A MAIS DE</p>
+                    <h2>5 ANOS</h2>
+                    <p className="anniversary-subtitle">NO MERCADO!</p>
+
+                    <div className="anniversary-highlights">
+                        <div className="anniversary-highlight">
+                            <ShieldCheck />
+                            <span>
+                                <strong>EXPERIÊNCIA</strong>
+                                <small>QUE FAZ A DIFERENÇA!</small>
+                            </span>
+                        </div>
+                        <div className="anniversary-highlight">
+                            <Star />
+                            <span>
+                                <strong>QUALIDADE</strong>
+                                <small>QUE VOCÊ MERECE!</small>
+                            </span>
+                        </div>
+                        <div className="anniversary-highlight">
+                            <UsersRound />
+                            <span>
+                                <strong>COMPROMISSO</strong>
+                                <small>COM VOCÊ SEMPRE!</small>
+                            </span>
+                        </div>
+                    </div>
+
+                    <p className="anniversary-thanks">
+                        <Play size={13} fill="currentColor" />
+                        Obrigado por fazer parte da nossa história!
+                    </p>
+                </div>
+
+                <div className="anniversary-seal" aria-label="Mais de 2 anos de confiança e qualidade">
+                    <div className="anniversary-stars">★★★★★</div>
+                    <strong>+5</strong>
+                    <span>ANOS</span>
+                    <b>DE CONFIANÇA E QUALIDADE!</b>
                 </div>
             </section>
 
