@@ -23,7 +23,7 @@ import {
     Zap,
 } from "lucide-react";
 
-import tvCompleta from "./assets/arte.png";
+import tvCompleta from "./assets/arte.jpeg";
 import mascot from "./assets/amigoflix.png";
 import canais from "./assets/canais.webp";
 import filmes from "./assets/filmes.webp";
@@ -135,7 +135,20 @@ const categories = [
 // =====================================================
 
 const plans = [
-    ["Mensal", "", "35,00", ""],
+    {
+        name: "Plano mensal",
+        detail: "1 dispositivo",
+        price: "35,00",
+        period: "mês",
+        badge: "",
+    },
+    {
+        name: "Oferta 3 meses",
+        detail: "1 dispositivo",
+        price: "90,00",
+        period: "3 meses",
+        badge: "Economize R$ 15,00",
+    },
 ];
 
 // =====================================================
@@ -401,6 +414,7 @@ export default function App() {
                         message="Olá, vim pelo site e quero solicitar meu teste grátis de 6 horas do Amigo Flix."
                     >
                         <Sparkles size={18} />
+                        🤩
                         Teste Grátis 6 horas
                     </ActionLink>
 
@@ -524,6 +538,7 @@ export default function App() {
                 <img
                     src={tvCompleta}
                     alt="TV completa Amigo Flix"
+                    className="tv-completa"
                 />
             </section>
 
@@ -792,10 +807,10 @@ export default function App() {
 
                 <div className="plan-grid">
                     {plans.map(
-                        ([period, screens, price, badge], i) => (
+                        ({ name, detail, price, period, badge }, i) => (
                             <article
-                                className={i === 4 ? "featured" : ""}
-                                key={period + screens}
+                                className={i === 1 ? "featured" : ""}
+                                key={name}
                             >
                                 {badge && (
                                     <span className="plan-badge">
@@ -803,9 +818,9 @@ export default function App() {
                                     </span>
                                 )}
 
-                                <h3>{period}</h3>
+                                <h3>{name}</h3>
 
-                                <p className="screens">{screens}</p>
+                                <p className="screens">{detail}</p>
 
                                 <div className="price">
                                     <small>R$</small>
@@ -813,14 +828,7 @@ export default function App() {
                                 </div>
 
                                 <p>
-                                    /
-                                    {period === "Mensal"
-                                        ? "mês"
-                                        : period === "Trimestral"
-                                            ? "3 meses"
-                                            : period === "Semestral"
-                                                ? "6 meses"
-                                                : "12 meses"}
+                                    / {period}
                                 </p>
 
                                 <ul>
@@ -837,13 +845,29 @@ export default function App() {
                                 </ul>
 
                                 <ActionLink
-                                    message="Olá, vim pelo site e quero assinar o plano do Amigo Flix."
+                                    message={`Olá, vim pelo site e quero assinar o ${name} do Amigo Flix.`}
                                 >
                                     Assinar agora
                                 </ActionLink>
                             </article>
                         )
                     )}
+                </div>
+
+                <div className="device-offer">
+                    <Smartphone size={21} />
+
+                    <div>
+                        <strong>Mais de 2 dispositivos?</strong>
+                        <p>Consulte a condição especial de R$ 30,00 por dispositivo/mês.</p>
+                    </div>
+
+                    <ActionLink
+                        secondary
+                        message="Olá, vim pelo site e quero consultar o plano para mais de 2 dispositivos."
+                    >
+                        Consultar plano
+                    </ActionLink>
                 </div>
 
                 <div className="pix-box">
