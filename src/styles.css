@@ -2125,7 +2125,8 @@ footer p {
 footer>small {
     display: block;
     color: var(--muted-foreground);
-    margin-top: 55px;
+    margin-top: 20px;
+
 }
 
 /* =====================================================

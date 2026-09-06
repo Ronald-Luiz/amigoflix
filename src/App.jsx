@@ -438,7 +438,7 @@ export default function App() {
                 </a>
             </section>
 
-          
+
 
             {/* =================================================
                 APPS
@@ -608,7 +608,7 @@ export default function App() {
             </section>
 
 
-              {/* =================================================
+            {/* =================================================
                 ANIVERSÁRIO
             ================================================= */}
 
@@ -1227,6 +1227,12 @@ export default function App() {
 
                 <small>
                     © 2026 Amigo Flix. Todos os direitos reservados.
+                </small>
+                <small>
+                    Desenvolvido por Ronald
+                </small>
+                <small>
+                    contato: ronaldxpdeveloper@gmail.com
                 </small>
             </footer>
 
