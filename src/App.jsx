@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import ParticlesBackground from "./ParticlesBackground";
 
@@ -52,6 +52,9 @@ import discoveryLogo from "./assets/icons/discovery-channel-logo.svg";
 // =====================================================
 
 const whatsappNumber = "5535988171523";
+const TMDB_ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwZDQ0MTQ1ZjdiYzZlZTc5NDY5YjU3ZGJhZThkMTYxMCIsIm5iZiI6MTY5OTMxOTM2Mi44OTUsInN1YiI6IjY1NDk4ZTQyMWFjMjkyN2IzMzg4NTkzYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.JnqrNQyxyQp7nfRbu-m_dXj2nUylALdbgQGrNLeLr2o";
+const TMDB_BASE_URL = "https://api.themoviedb.org/3";
+const TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
 const whatsapp = `https://wa.me/${whatsappNumber}`;
 
@@ -269,6 +272,73 @@ export default function App() {
     const [openFaq, setOpenFaq] = useState(null);
     const [brand, setBrand] = useState(0);
     const [activeCategory, setActiveCategory] = useState(null);
+    const [tmdbMovies, setTmdbMovies] = useState([]);
+
+    useEffect(() => {
+        let isMounted = true;
+
+        const fetchMovies = async () => {
+            try {
+                const response = await fetch(
+                    `${TMDB_BASE_URL}/movie/now_playing?language=pt-BR&page=1`,
+                    {
+                        headers: {
+                            accept: "application/json",
+                            Authorization: `Bearer ${TMDB_ACCESS_TOKEN}`,
+                        },
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error("Erro ao carregar filmes do TMDB");
+                }
+
+                const data = await response.json();
+
+                if (isMounted) {
+                    setTmdbMovies(data.results.slice(0, 12));
+                }
+            } catch (error) {
+                console.error(error);
+
+                if (isMounted) {
+                    setTmdbMovies([]);
+                }
+            }
+        };
+
+        fetchMovies();
+        const intervalId = setInterval(fetchMovies, 600000);
+
+        return () => {
+            isMounted = false;
+            clearInterval(intervalId);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (!activeCategory) return;
+
+        const handleCloseOnScroll = () => {
+            setActiveCategory(null);
+        };
+
+        window.addEventListener("scroll", handleCloseOnScroll, {
+            passive: true,
+        });
+        window.addEventListener("wheel", handleCloseOnScroll, {
+            passive: true,
+        });
+        window.addEventListener("touchmove", handleCloseOnScroll, {
+            passive: true,
+        });
+
+        return () => {
+            window.removeEventListener("scroll", handleCloseOnScroll);
+            window.removeEventListener("wheel", handleCloseOnScroll);
+            window.removeEventListener("touchmove", handleCloseOnScroll);
+        };
+    }, [activeCategory]);
 
     const brandCarouselRef = useRef(null);
     const brandRefs = useRef([]);
@@ -485,6 +555,45 @@ export default function App() {
                 VÍDEO
             ================================================= */}
 
+            <section className="tmdb-showcase section">
+                <SectionTitle
+                    eyebrow="LANÇAMENTOS"
+                    subtitle="Os filmes mais recentes em destaque para você acompanhar"
+                >
+                    Bombando!🔥
+                </SectionTitle>
+
+                <div className="tmdb-carousel" aria-live="polite">
+                    <div className="tmdb-track">
+                        {tmdbMovies.length > 0 ? (
+                            [...tmdbMovies, ...tmdbMovies].map((movie, index) => (
+                                <article
+                                    className="tmdb-card"
+                                    key={`${movie.id}-${index}`}
+                                >
+                                    <img
+                                        src={
+                                            movie.poster_path
+                                                ? `${TMDB_IMAGE_BASE_URL}${movie.poster_path}`
+                                                : logo
+                                        }
+                                        alt={movie.title}
+                                    />
+                                    <div className="tmdb-card-overlay">
+                                        <span>{movie.release_date?.slice(0, 4) || "Novo"}</span>
+                                        <strong>{movie.title}</strong>
+                                    </div>
+                                </article>
+                            ))
+                        ) : (
+                            Array.from({ length: 6 }).map((_, index) => (
+                                <div className="tmdb-card tmdb-card-skeleton" key={index} />
+                            ))
+                        )}
+                    </div>
+                </div>
+            </section>
+
             <section className="video-showcase section">
                 <SectionTitle
                     eyebrow="AMIGO FLIX EM AÇÃO"
@@ -581,7 +690,7 @@ export default function App() {
                             [
                                 CircleCheck,
                                 "Preço justo.",
-                                "Planos a partir de R$ 30/mês",
+                                "Planos a partir de R$ 35/mês",
                             ],
                             [
                                 Wifi,

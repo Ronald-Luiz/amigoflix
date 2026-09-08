@@ -432,6 +432,117 @@ em {
 }
 
 /* =====================================================
+   TMDB CAROUSEL
+   ===================================================== */
+
+.tmdb-showcase {
+    padding-top: 12px;
+}
+
+.tmdb-carousel {
+    width: min(1180px, calc(100% - 24px));
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 20px;
+    position: relative;
+    background: rgba(7, 20, 46, 0.35);
+    border: 1px solid rgba(65, 170, 255, 0.2);
+    box-shadow: inset 0 0 30px rgba(51, 133, 255, 0.08);
+}
+
+.tmdb-carousel::before,
+.tmdb-carousel::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 80px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.tmdb-carousel::before {
+    left: 0;
+    background: linear-gradient(90deg, rgba(2, 8, 20, 0.9), transparent);
+}
+
+.tmdb-carousel::after {
+    right: 0;
+    background: linear-gradient(270deg, rgba(2, 8, 20, 0.9), transparent);
+}
+
+.tmdb-track {
+    display: flex;
+    width: max-content;
+    gap: 18px;
+    padding: 18px 10px 14px;
+    animation: tmdbScroll 36s linear infinite;
+}
+
+.tmdb-card {
+    position: relative;
+    width: 220px;
+    height: 320px;
+    flex: 0 0 auto;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(102, 214, 255, 0.28);
+    background: #060b18;
+    box-shadow: 0 16px 38px rgba(1, 14, 40, 0.42);
+}
+
+.tmdb-card img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.tmdb-card-overlay {
+    position: absolute;
+    inset: auto 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 14px 12px 12px;
+    background: linear-gradient(180deg, transparent, rgba(3, 7, 18, 0.9) 38%, rgba(2, 8, 20, 0.98));
+}
+
+.tmdb-card-overlay span {
+    display: inline-flex;
+    align-self: flex-start;
+    padding: 5px 8px;
+    border-radius: 999px;
+    background: rgba(77, 187, 255, 0.18);
+    border: 1px solid rgba(120, 217, 255, 0.28);
+    color: #dff7ff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.tmdb-card-overlay strong {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #fff;
+}
+
+.tmdb-card-skeleton {
+    background: linear-gradient(135deg, rgba(28, 43, 79, 0.95), rgba(13, 25, 48, 0.95));
+    border: 1px solid rgba(88, 173, 255, 0.16);
+}
+
+@keyframes tmdbScroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* =====================================================
    VÍDEO
    ===================================================== */
 
@@ -921,9 +1032,9 @@ em {
 
 .catalog {
     position: relative;
-    width: min(1180px, calc(100% - 40px));
-    padding: 46px 28px 18px;
-    border-radius: 30px;
+    width: min(900px, calc(100% - 28px));
+    padding: 30px 22px 18px;
+    border-radius: 26px;
 
     background:
         radial-gradient(circle at 50% 0%,
@@ -1003,13 +1114,13 @@ em {
 .category-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
+    gap: 12px;
 }
 
 .category-card {
     position: relative;
-    height: 350px;
-    border-radius: 22px;
+    height: 248px;
+    border-radius: 18px;
     overflow: hidden;
     border: 1px solid rgba(134, 167, 255, .28);
     background: #090b18;
@@ -1167,7 +1278,8 @@ em {
 
 .category-modal {
     position: relative;
-    width: min(760px, 92vw);
+    width: min(460px, 78vw);
+    max-height: 72vh;
     background:
         linear-gradient(180deg,
             rgba(8, 38, 82, .98),
@@ -1199,7 +1311,7 @@ em {
 
 .category-modal-visual {
     position: relative;
-    min-height: 260px;
+    min-height: 180px;
     border-radius: 0;
     border-bottom: 1px solid rgba(72, 193, 255, .3);
     overflow: hidden;
@@ -1248,27 +1360,27 @@ em {
 
 .category-modal-title-wrap h3 {
     margin: 0;
-    font-size: 2.1rem;
+    font-size: 1.7rem;
     letter-spacing: -.04em;
 }
 
 .category-modal-body {
-    padding: 24px 24px 22px;
+    padding: 18px 18px 20px;
     background: rgba(10, 12, 24, .2);
 }
 
 .category-modal-body h4 {
-    margin: 0 0 18px;
-    font-size: 1.1rem;
+    margin: 0 0 14px;
+    font-size: 1rem;
     color: #f5f2ff;
 }
 
 .category-modal-body ul {
     list-style: none;
     padding: 0;
-    margin: 0 0 24px;
+    margin: 0 0 18px;
     display: grid;
-    gap: 10px;
+    gap: 8px;
 }
 
 .category-modal-body li {
