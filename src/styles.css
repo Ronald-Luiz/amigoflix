@@ -1357,8 +1357,8 @@ em {
 
 .category-modal {
     position: relative;
-    width: 30%;
-    max-height: 72vh;
+    width: 42vh;
+    /* max-height: 100vh; */
     background:
         linear-gradient(180deg,
             rgba(8, 38, 82, .98),
@@ -2754,12 +2754,53 @@ footer>small {
    ===================================================== */
 
 @media (max-width: 600px) {
+    main {
+        background-attachment: scroll;
+    }
+
+    main::before,
+    main::after {
+        opacity: 0.45;
+        filter: blur(22px);
+    }
+
     .hero {
         padding-top: 35px;
     }
 
     .hero h1 {
         font-size: 34px;
+    }
+
+    .tmdb-showcase {
+        padding-top: 4px;
+    }
+
+    .tmdb-card {
+        width: 118px;
+        height: 176px;
+    }
+
+    .tmdb-track {
+        gap: 10px;
+        padding: 8px 8px 10px;
+        animation-duration: 20s;
+    }
+
+    .tmdb-card-overlay strong {
+        font-size: 0.62rem;
+    }
+
+    .site-video {
+        max-height: 320px;
+    }
+
+    .video-shell {
+        border-radius: 18px;
+    }
+
+    .catalog-cta {
+        font-size: clamp(1.2rem, 7vw, 1.9rem);
     }
 
     .hero-sub {

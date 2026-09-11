@@ -273,12 +273,31 @@ export default function App() {
     const [brand, setBrand] = useState(0);
     const [activeCategory, setActiveCategory] = useState(null);
     const [tmdbMovies, setTmdbMovies] = useState([]);
+    const [isMobile, setIsMobile] = useState(() => {
+        if (typeof window === "undefined") {
+            return false;
+        }
+
+        return window.innerWidth <= 600;
+    });
+
+    useEffect(() => {
+        const updateViewport = () => {
+            setIsMobile(window.innerWidth <= 600);
+        };
+
+        updateViewport();
+        window.addEventListener("resize", updateViewport);
+
+        return () => window.removeEventListener("resize", updateViewport);
+    }, []);
 
     useEffect(() => {
         let isMounted = true;
 
         const fetchMovies = async () => {
             try {
+                const limit = window.innerWidth <= 600 ? 6 : 12;
                 const response = await fetch(
                     `${TMDB_BASE_URL}/movie/now_playing?language=pt-BR&page=1`,
                     {
@@ -296,7 +315,7 @@ export default function App() {
                 const data = await response.json();
 
                 if (isMounted) {
-                    setTmdbMovies(data.results.slice(0, 12));
+                    setTmdbMovies(data.results.slice(0, limit));
                 }
             } catch (error) {
                 console.error(error);
@@ -466,7 +485,7 @@ export default function App() {
 
     return (
         <main>
-            <ParticlesBackground />
+            <ParticlesBackground reducedMotion={isMobile} />
 
             {/* =================================================
                 HERO
@@ -577,25 +596,30 @@ export default function App() {
                     <div className="tmdb-carousel" aria-live="polite">
                         <div className="tmdb-track">
                             {tmdbMovies.length > 0 ? (
-                                [...tmdbMovies, ...tmdbMovies].map((movie, index) => (
-                                    <article
-                                        className="tmdb-card"
-                                        key={`${movie.id}-${index}`}
-                                    >
-                                        <img
-                                            src={
-                                                movie.poster_path
-                                                    ? `${TMDB_IMAGE_BASE_URL}${movie.poster_path}`
-                                                    : logo
-                                            }
-                                            alt={movie.title}
-                                        />
-                                        <div className="tmdb-card-overlay">
-                                            <span>{movie.release_date?.slice(0, 4) || "Novo"}</span>
-                                            <strong>{movie.title}</strong>
-                                        </div>
-                                    </article>
-                                ))
+                                (() => {
+                                    const pool = tmdbMovies.slice(0, isMobile ? 6 : 12);
+                                    return [...pool, ...pool].map((movie, index) => (
+                                        <article
+                                            className="tmdb-card"
+                                            key={`${movie.id}-${index}`}
+                                        >
+                                            <img
+                                                src={
+                                                    movie.poster_path
+                                                        ? `${TMDB_IMAGE_BASE_URL}${movie.poster_path}`
+                                                        : logo
+                                                }
+                                                alt={movie.title}
+                                                loading="lazy"
+                                                decoding="async"
+                                            />
+                                            <div className="tmdb-card-overlay">
+                                                <span>{movie.release_date?.slice(0, 4) || "Novo"}</span>
+                                                <strong>{movie.title}</strong>
+                                            </div>
+                                        </article>
+                                    ));
+                                })()
                             ) : (
                                 Array.from({ length: 6 }).map((_, index) => (
                                     <div className="tmdb-card tmdb-card-skeleton" key={index} />
@@ -606,25 +630,30 @@ export default function App() {
                         <div className="tmdb-carousel tmdb-carousel-reverse" aria-live="polite">
                             <div className="tmdb-track tmdb-track-reverse">
                                 {tmdbMovies.length > 0 ? (
-                                    [...tmdbMovies, ...tmdbMovies].map((movie, index) => (
-                                        <article
-                                            className="tmdb-card"
-                                            key={`reverse-${movie.id}-${index}`}
-                                        >
-                                            <img
-                                                src={
-                                                    movie.poster_path
-                                                        ? `${TMDB_IMAGE_BASE_URL}${movie.poster_path}`
-                                                        : logo
-                                                }
-                                                alt={movie.title}
-                                            />
-                                            <div className="tmdb-card-overlay">
-                                                <span>{movie.release_date?.slice(0, 4) || "Novo"}</span>
-                                                <strong>{movie.title}</strong>
-                                            </div>
-                                        </article>
-                                    ))
+                                    (() => {
+                                        const pool = tmdbMovies.slice(0, isMobile ? 6 : 12);
+                                        return [...pool, ...pool].map((movie, index) => (
+                                            <article
+                                                className="tmdb-card"
+                                                key={`reverse-${movie.id}-${index}`}
+                                            >
+                                                <img
+                                                    src={
+                                                        movie.poster_path
+                                                            ? `${TMDB_IMAGE_BASE_URL}${movie.poster_path}`
+                                                            : logo
+                                                    }
+                                                    alt={movie.title}
+                                                    loading="lazy"
+                                                    decoding="async"
+                                                />
+                                                <div className="tmdb-card-overlay">
+                                                    <span>{movie.release_date?.slice(0, 4) || "Novo"}</span>
+                                                    <strong>{movie.title}</strong>
+                                                </div>
+                                            </article>
+                                        ));
+                                    })()
                                 ) : (
                                     Array.from({ length: 6 }).map((_, index) => (
                                         <div className="tmdb-card tmdb-card-skeleton" key={`reverse-${index}`} />
@@ -954,7 +983,7 @@ export default function App() {
                 FAMÍLIA
             ================================================= */}
 
-            <section className="family section">
+            {/* <section className="family section">
                 <SectionTitle subtitle="Milhares de horas de diversão sem complicação">
                     Conteúdo para toda a família
                 </SectionTitle>
@@ -1000,7 +1029,7 @@ export default function App() {
                         </article>
                     ))}
                 </div>
-            </section>
+            </section> */}
 
             {/* =================================================
                 PLANOS
@@ -1084,7 +1113,7 @@ export default function App() {
                         Consultar plano
                     </ActionLink>
                 </div>
-
+{/* 
                 <div className="pix-box">
                     <Zap />
 
@@ -1103,7 +1132,7 @@ export default function App() {
                             WhatsApp.
                         </p>
                     </div>
-                </div>
+                </div> */}
             </section>
 
             <section className="comparison section">
@@ -1237,7 +1266,7 @@ export default function App() {
                     ))}
                 </div>
 
-                <div className="tv-brand-section">
+                {/* <div className="tv-brand-section">
                     <h2 className="tv-brand-title">
                         Escolha a marca da sua televisão
                     </h2>
@@ -1348,7 +1377,7 @@ export default function App() {
                             sem aparelho extra.
                         </p>
                     </div>
-                </div>
+                </div> */}
             </section>
 
             {/* =================================================
