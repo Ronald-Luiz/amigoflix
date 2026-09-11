@@ -1357,7 +1357,7 @@ em {
 
 .category-modal {
     position: relative;
-    width: 50%;
+    width: 30%;
     max-height: 72vh;
     background:
         linear-gradient(180deg,
