@@ -317,28 +317,38 @@ export default function App() {
     }, []);
 
     useEffect(() => {
-        if (!activeCategory) return;
+        if (!activeCategory) {
+            document.body.style.overflow = "";
+            return;
+        }
 
-        const handleCloseOnScroll = () => {
-            setActiveCategory(null);
-        };
-
-        window.addEventListener("scroll", handleCloseOnScroll, {
-            passive: true,
-        });
-        window.addEventListener("wheel", handleCloseOnScroll, {
-            passive: true,
-        });
-        window.addEventListener("touchmove", handleCloseOnScroll, {
-            passive: true,
-        });
+        const previousOverflow = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
 
         return () => {
-            window.removeEventListener("scroll", handleCloseOnScroll);
-            window.removeEventListener("wheel", handleCloseOnScroll);
-            window.removeEventListener("touchmove", handleCloseOnScroll);
+            document.body.style.overflow = previousOverflow;
         };
     }, [activeCategory]);
+
+    const openCategory = ({ image, title, subtitle, detail, features }) => {
+        const catalogSection = document.querySelector(".catalog");
+
+        if (catalogSection) {
+            const sectionTop = catalogSection.getBoundingClientRect().top + window.scrollY;
+            const targetTop = Math.max(sectionTop - 80, 0);
+
+            if (window.scrollY > 0) {
+                window.scrollTo({
+                    top: targetTop,
+                    behavior: "smooth",
+                });
+            }
+        }
+
+        requestAnimationFrame(() => {
+            setActiveCategory({ image, title, subtitle, detail, features });
+        });
+    };
 
     const brandCarouselRef = useRef(null);
     const brandRefs = useRef([]);
@@ -563,34 +573,77 @@ export default function App() {
                     Bombando!🔥
                 </SectionTitle>
 
-                <div className="tmdb-carousel" aria-live="polite">
-                    <div className="tmdb-track">
-                        {tmdbMovies.length > 0 ? (
-                            [...tmdbMovies, ...tmdbMovies].map((movie, index) => (
-                                <article
-                                    className="tmdb-card"
-                                    key={`${movie.id}-${index}`}
-                                >
-                                    <img
-                                        src={
-                                            movie.poster_path
-                                                ? `${TMDB_IMAGE_BASE_URL}${movie.poster_path}`
-                                                : logo
-                                        }
-                                        alt={movie.title}
-                                    />
-                                    <div className="tmdb-card-overlay">
-                                        <span>{movie.release_date?.slice(0, 4) || "Novo"}</span>
-                                        <strong>{movie.title}</strong>
-                                    </div>
-                                </article>
-                            ))
-                        ) : (
-                            Array.from({ length: 6 }).map((_, index) => (
-                                <div className="tmdb-card tmdb-card-skeleton" key={index} />
-                            ))
-                        )}
+                <div className="catalog-rail">
+                    <div className="tmdb-carousel" aria-live="polite">
+                        <div className="tmdb-track">
+                            {tmdbMovies.length > 0 ? (
+                                [...tmdbMovies, ...tmdbMovies].map((movie, index) => (
+                                    <article
+                                        className="tmdb-card"
+                                        key={`${movie.id}-${index}`}
+                                    >
+                                        <img
+                                            src={
+                                                movie.poster_path
+                                                    ? `${TMDB_IMAGE_BASE_URL}${movie.poster_path}`
+                                                    : logo
+                                            }
+                                            alt={movie.title}
+                                        />
+                                        <div className="tmdb-card-overlay">
+                                            <span>{movie.release_date?.slice(0, 4) || "Novo"}</span>
+                                            <strong>{movie.title}</strong>
+                                        </div>
+                                    </article>
+                                ))
+                            ) : (
+                                Array.from({ length: 6 }).map((_, index) => (
+                                    <div className="tmdb-card tmdb-card-skeleton" key={index} />
+                                ))
+                            )}
+                        </div>
+
+                        <div className="tmdb-carousel tmdb-carousel-reverse" aria-live="polite">
+                            <div className="tmdb-track tmdb-track-reverse">
+                                {tmdbMovies.length > 0 ? (
+                                    [...tmdbMovies, ...tmdbMovies].map((movie, index) => (
+                                        <article
+                                            className="tmdb-card"
+                                            key={`reverse-${movie.id}-${index}`}
+                                        >
+                                            <img
+                                                src={
+                                                    movie.poster_path
+                                                        ? `${TMDB_IMAGE_BASE_URL}${movie.poster_path}`
+                                                        : logo
+                                                }
+                                                alt={movie.title}
+                                            />
+                                            <div className="tmdb-card-overlay">
+                                                <span>{movie.release_date?.slice(0, 4) || "Novo"}</span>
+                                                <strong>{movie.title}</strong>
+                                            </div>
+                                        </article>
+                                    ))
+                                ) : (
+                                    Array.from({ length: 6 }).map((_, index) => (
+                                        <div className="tmdb-card tmdb-card-skeleton" key={`reverse-${index}`} />
+                                    ))
+                                )}
+                            </div>
+                        </div>
                     </div>
+                </div>
+
+                <div className="catalog-cta-row">
+                    <a
+                        className="catalog-cta"
+                        href={buildWhatsAppLink(
+                            "Olá, vim pelo site e quero ver o catálogo completo do Amigo Flix."
+                        )}
+                    >
+                        <p>Quero ver o catálogo <span aria-hidden="true">→</span></p>
+                    </a>
                 </div>
             </section>
 
@@ -791,7 +844,7 @@ export default function App() {
                                 key={title}
                                 tabIndex={0}
                                 onClick={() =>
-                                    setActiveCategory({
+                                    openCategory({
                                         image,
                                         title,
                                         subtitle,
@@ -806,7 +859,7 @@ export default function App() {
                                     ) {
                                         event.preventDefault();
 
-                                        setActiveCategory({
+                                        openCategory({
                                             image,
                                             title,
                                             subtitle,
@@ -1051,6 +1104,77 @@ export default function App() {
                         </p>
                     </div>
                 </div>
+            </section>
+
+            <section className="comparison section">
+                <div className="comparison-grid">
+                    <article className="comparison-card comparison-card-base">
+                        <h3>Assinando separadamente</h3>
+                        <p>Preços mensais de referência</p>
+
+                        <ul className="comparison-list">
+                            {[
+                                ["Netflix", "R$ 55,90"],
+                                ["Amazon Prime", "R$ 19,90"],
+                                ["Disney+", "R$ 43,90"],
+                                ["Max", "R$ 34,90"],
+                                ["Globoplay", "R$ 49,90"],
+                                ["Paramount+", "R$ 19,90"],
+                                ["Star+", "R$ 45,90"],
+                                ["Telecine", "R$ 49,90"],
+                                ["Canais ao vivo", "R$ 89,90"],
+                            ].map(([name, price]) => (
+                                <li key={name}>
+                                    <span>{name}</span>
+                                    <strong>{price}</strong>
+                                </li>
+                            ))}
+                        </ul>
+
+                        <div className="comparison-total">
+                            <span>Total mensal</span>
+                            <b>R$ 410,10</b>
+                        </div>
+                    </article>
+
+                    <article className="comparison-card comparison-card-premium">
+                        <div className="comparison-brand">
+                            <span className="comparison-brand-icon">◉</span>
+                            <span>PLUS TV</span>
+                        </div>
+                        <p>Todo em um só lugar</p>
+
+                        <ul className="comparison-list comparison-list-check">
+                            {[
+                                "Netflix",
+                                "Amazon Prime",
+                                "Disney+",
+                                "Max",
+                                "Globoplay",
+                                "Paramount+",
+                                "Star+",
+                                "Telecine",
+                                "Canais ao vivo",
+                            ].map((name) => (
+                                <li key={name}>
+                                    <span>{name}</span>
+                                    <Check size={16} />
+                                </li>
+                            ))}
+                        </ul>
+
+                        <div className="comparison-price-box">
+                            <span>Acesso a tudo isso por apenas:</span>
+                            <strong>R$ 35,00</strong>
+                            {/* <small>Economia de R$ 392,65 no primeiro mês</small>
+                            <small>Depois, economia de R$ 375,20/mês.</small> */}
+                        </div>
+                    </article>
+                </div>
+
+                <p className="comparison-footnote">
+                    Comparativo com preços mensais de referência, sujeitos a alteração pelos respectivos serviços.
+                </p>
             </section>
 
             {/* =================================================

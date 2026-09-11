@@ -439,9 +439,17 @@ em {
     padding-top: 12px;
 }
 
-.tmdb-carousel {
-    width: min(1180px, calc(100% - 24px));
+.catalog-rail {
+    width: min(1280px, calc(100% - 22px));
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: stretch;
+}
+
+.tmdb-carousel {
+    width: 100%;
     overflow: hidden;
     border-radius: 20px;
     position: relative;
@@ -450,12 +458,16 @@ em {
     box-shadow: inset 0 0 30px rgba(51, 133, 255, 0.08);
 }
 
+.tmdb-carousel-reverse {
+    margin-top: 0;
+}
+
 .tmdb-carousel::before,
 .tmdb-carousel::after {
     content: "";
     position: absolute;
     top: 0;
-    width: 80px;
+    width: 38px;
     height: 100%;
     z-index: 2;
     pointer-events: none;
@@ -474,21 +486,38 @@ em {
 .tmdb-track {
     display: flex;
     width: max-content;
-    gap: 18px;
-    padding: 18px 10px 14px;
-    animation: tmdbScroll 36s linear infinite;
+    gap: 14px;
+    padding: 10px 10px 12px;
+    animation: tmdbScroll 32s linear infinite;
+}
+
+.tmdb-track-reverse {
+    animation: tmdbScrollReverse 32s linear infinite;
 }
 
 .tmdb-card {
     position: relative;
-    width: 220px;
-    height: 320px;
+    width: 150px;
+    height: 220px;
     flex: 0 0 auto;
     border-radius: 18px;
     overflow: hidden;
     border: 1px solid rgba(102, 214, 255, 0.28);
     background: #060b18;
-    box-shadow: 0 16px 38px rgba(1, 14, 40, 0.42);
+    box-shadow: 0 12px 28px rgba(1, 14, 40, 0.42);
+    transition:
+        transform .28s ease,
+        box-shadow .28s ease,
+        border-color .28s ease,
+        filter .28s ease;
+    cursor: pointer;
+}
+
+.tmdb-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    border-color: rgba(116, 219, 255, 0.8);
+    box-shadow: 0 18px 34px rgba(15, 110, 255, 0.32), 0 0 16px rgba(88, 205, 255, 0.18);
+    filter: brightness(1.04) saturate(1.08);
 }
 
 .tmdb-card img {
@@ -496,6 +525,11 @@ em {
     height: 100%;
     display: block;
     object-fit: cover;
+    transition: transform .28s ease;
+}
+
+.tmdb-card:hover img {
+    transform: scale(1.04);
 }
 
 .tmdb-card-overlay {
@@ -504,27 +538,27 @@ em {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    padding: 14px 12px 12px;
-    background: linear-gradient(180deg, transparent, rgba(3, 7, 18, 0.9) 38%, rgba(2, 8, 20, 0.98));
+    padding: 10px 8px 8px;
+    background: linear-gradient(180deg, transparent, rgba(3, 7, 18, 0.85) 38%, rgba(2, 8, 20, 0.97));
 }
 
 .tmdb-card-overlay span {
     display: inline-flex;
     align-self: flex-start;
-    padding: 5px 8px;
+    padding: 4px 7px;
     border-radius: 999px;
     background: rgba(77, 187, 255, 0.18);
     border: 1px solid rgba(120, 217, 255, 0.28);
     color: #dff7ff;
-    font-size: 10px;
+    font-size: 7px;
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
 }
 
 .tmdb-card-overlay strong {
-    font-size: 0.9rem;
-    line-height: 1.4;
+    font-size: 0.7rem;
+    line-height: 1.3;
     color: #fff;
 }
 
@@ -537,9 +571,54 @@ em {
     0% {
         transform: translateX(0);
     }
+
     100% {
         transform: translateX(-50%);
     }
+}
+
+@keyframes tmdbScrollReverse {
+    0% {
+        transform: translateX(-50%);
+    }
+
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+.catalog-cta-row {
+    width: min(1280px, calc(100% - 22px));
+    margin: 14px auto 0;
+    display: flex;
+    justify-content: flex-start;
+
+    p {
+        font-size: 16px;
+    }
+}
+
+.catalog-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #39d7ff;
+    text-decoration: none;
+    font-size: clamp(1.7rem, 2vw, 2.3rem);
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    transition: transform .25s ease, filter .25s ease;
+    line-height: 1;
+}
+
+.catalog-cta:hover {
+    transform: translateX(6px);
+    filter: brightness(1.08);
+}
+
+.catalog-cta span {
+    color: #39d7ff;
+    font-size: 1.1em;
 }
 
 /* =====================================================
@@ -1278,7 +1357,7 @@ em {
 
 .category-modal {
     position: relative;
-    width: min(460px, 78vw);
+    width: 50%;
     max-height: 72vh;
     background:
         linear-gradient(180deg,
@@ -1291,6 +1370,8 @@ em {
         0 0 32px rgba(32, 174, 255, .24);
     overflow: hidden;
     animation: modalIn .28s ease;
+
+    margin-bottom: 200px;
 }
 
 .category-modal-close {
@@ -1677,6 +1758,168 @@ em {
 
 .pix-box p {
     color: var(--muted-foreground);
+}
+
+.comparison {
+    width: min(1220px, calc(100% - 36px));
+    margin: 0 auto;
+    padding-top: 12px;
+}
+
+.comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    align-items: stretch;
+}
+
+.comparison-card {
+    position: relative;
+    border-radius: 26px;
+    padding: 28px 28px 18px;
+    min-height: 620px;
+    border: 1px solid rgba(117, 143, 192, 0.28);
+    background: linear-gradient(180deg, rgba(9, 27, 53, 0.96), rgba(5, 17, 37, 0.92));
+    box-shadow: inset 0 0 0 1px rgba(140, 173, 255, 0.06);
+}
+
+.comparison-card-base {
+    background: linear-gradient(180deg, rgba(11, 27, 51, 0.96), rgba(5, 17, 34, 0.96));
+}
+
+.comparison-card-premium {
+    background: linear-gradient(180deg, rgba(38, 28, 73, 0.98), rgba(23, 19, 51, 0.98));
+    border-color: rgba(146, 116, 255, 0.36);
+}
+
+.comparison-card h3 {
+    margin: 0;
+    font-size: clamp(1.9rem, 2.1vw, 2.8rem);
+    letter-spacing: -0.05em;
+    line-height: 1.1;
+    color: #f2f6ff;
+}
+
+.comparison-card>p {
+    margin: 10px 0 0;
+    color: rgba(218, 226, 255, 0.7);
+    font-size: 0.96rem;
+}
+
+.comparison-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0;
+    border-top: 1px dashed rgba(152, 177, 255, 0.26);
+}
+
+.comparison-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 0;
+    font-size: 1.02rem;
+    border-bottom: 1px dashed rgba(152, 177, 255, 0.26);
+    color: #ebf2ff;
+}
+
+.comparison-list li span {
+    font-weight: 500;
+}
+
+.comparison-list li strong {
+    font-size: 1.05rem;
+    color: #f4f8ff;
+    font-weight: 800;
+}
+
+.comparison-list-check li {
+    color: #eaf2ff;
+}
+
+.comparison-list-check li svg {
+    color: #3fe0ad;
+    stroke-width: 3;
+    flex-shrink: 0;
+}
+
+.comparison-total {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 18px;
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px dashed rgba(152, 177, 255, 0.26);
+    color: #edf4ff;
+}
+
+.comparison-total span {
+    font-size: 1.05rem;
+    color: rgba(225, 233, 255, 0.8);
+}
+
+.comparison-total b {
+    font-size: clamp(2rem, 2.6vw, 3.2rem);
+    letter-spacing: -0.05em;
+    color: #ff7a7a;
+}
+
+.comparison-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: clamp(1.5rem, 2vw, 2.3rem);
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    color: #f2f6ff;
+}
+
+.comparison-brand-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+    background: linear-gradient(145deg, #2ec4ff, #6aa8ff);
+    color: #091426;
+    font-size: 0.75rem;
+    box-shadow: 0 0 18px rgba(88, 187, 255, 0.45);
+}
+
+.comparison-price-box {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 32px;
+    margin-top: 24px;
+    border-top: 1px dashed rgba(152, 177, 255, 0.26);
+    color: #edf5ff;
+}
+
+.comparison-price-box span {
+    font-size: 1.05rem;
+    color: rgba(225, 233, 255, 0.82);
+}
+
+.comparison-price-box strong {
+    font-size: clamp(2.1rem, 3vw, 4.2rem);
+    letter-spacing: -0.06em;
+    line-height: 0.9;
+    color: #54d8ff;
+}
+
+.comparison-price-box small {
+    font-size: 0.92rem;
+    color: rgba(228, 238, 255, 0.78);
+}
+
+.comparison-footnote {
+    margin: 18px 0 0;
+    color: rgba(214, 222, 255, 0.7);
+    font-size: 0.9rem;
 }
 
 /* =====================================================
