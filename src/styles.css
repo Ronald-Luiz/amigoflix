@@ -2734,6 +2734,19 @@ footer>small {
     .pricing-video-wrap {
         margin-bottom: 20px;
     }
+
+    .comparison {
+        width: min(100%, calc(100% - 22px));
+    }
+
+    .comparison-grid {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+
+    .comparison-card {
+        min-height: 0;
+    }
 }
 
 /* =====================================================
@@ -2823,6 +2836,76 @@ footer>small {
 
     .catalog .section-heading p {
         font-size: .92rem;
+    }
+
+    .comparison {
+        width: min(100%, calc(100% - 16px));
+    }
+
+    .comparison-card {
+        padding: 20px 16px 16px;
+        border-radius: 20px;
+    }
+
+    .comparison-card h3 {
+        font-size: clamp(1.5rem, 7vw, 2.2rem);
+    }
+
+    .comparison-card>p {
+        font-size: 0.82rem;
+    }
+
+    .comparison-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .comparison-list li {
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 12px 0;
+        font-size: 0.94rem;
+    }
+
+    .comparison-list li span {
+        flex: 1 1 160px;
+        line-height: 1.35;
+        word-break: break-word;
+    }
+
+    .comparison-list li strong {
+        font-size: 0.92rem;
+        margin-left: auto;
+        white-space: nowrap;
+    }
+
+    .comparison-total {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        margin-top: 18px;
+    }
+
+    .comparison-total b {
+        font-size: 2.25rem;
+    }
+
+    .comparison-brand {
+        font-size: 1.6rem;
+    }
+
+    .comparison-price-box {
+        padding-top: 24px;
+        margin-top: 18px;
+    }
+
+    .comparison-price-box strong {
+        font-size: clamp(2.2rem, 10vw, 3.2rem);
+    }
+
+    .comparison-footnote {
+        font-size: 0.8rem;
     }
 
     .category-grid {

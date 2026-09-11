@@ -1140,7 +1140,7 @@ export default function App() {
                     <article className="comparison-card comparison-card-premium">
                         <div className="comparison-brand">
                             <span className="comparison-brand-icon">◉</span>
-                            <span>PLUS TV</span>
+                            <span>Amigo Flix</span>
                         </div>
                         <p>Todo em um só lugar</p>
 
