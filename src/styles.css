@@ -2488,6 +2488,40 @@ footer>small {
    WHATSAPP FLUTUANTE
    ===================================================== */
 
+.visit-counter {
+    position: fixed;
+    left: 18px;
+    bottom: 24px;
+    z-index: 90;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(125, 211, 252, 0.45);
+    background: rgba(15, 23, 42, 0.72);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.32);
+    color: #e2e8f0;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+}
+
+.visit-counter svg {
+    color: #7dd3fc;
+}
+
+.visit-counter span {
+    font-size: 13px;
+}
+
+.visit-counter small {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    opacity: 0.8;
+}
+
 .floating {
     position: fixed;
     right: 22px;

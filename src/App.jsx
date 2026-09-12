@@ -9,6 +9,7 @@ import {
     ChevronRight,
     CircleCheck,
     Clock3,
+    Eye,
     Gamepad2,
     Headphones,
     Laptop,
@@ -273,6 +274,7 @@ export default function App() {
     const [brand, setBrand] = useState(0);
     const [activeCategory, setActiveCategory] = useState(null);
     const [tmdbMovies, setTmdbMovies] = useState([]);
+    const [visitCount, setVisitCount] = useState(0);
     const [isMobile, setIsMobile] = useState(() => {
         if (typeof window === "undefined") {
             return false;
@@ -280,6 +282,50 @@ export default function App() {
 
         return window.innerWidth <= 600;
     });
+
+    useEffect(() => {
+        let isActive = true;
+
+        const syncVisitCount = async () => {
+            const localKey = "amigoflix-visit-count";
+
+            const fallbackCount = () => {
+                const storedValue = Number(localStorage.getItem(localKey) || 0);
+                const nextValue = Number.isFinite(storedValue)
+                    ? storedValue + 1
+                    : 1;
+
+                localStorage.setItem(localKey, String(nextValue));
+                return nextValue;
+            };
+
+            try {
+                const response = await fetch(
+                    "https://api.countapi.xyz/hit/amigo-flix/visitas"
+                );
+
+                if (!response.ok) {
+                    throw new Error("Erro ao consultar contador externo");
+                }
+
+                const data = await response.json();
+
+                if (isActive && typeof data?.value === "number") {
+                    setVisitCount(data.value);
+                }
+            } catch (error) {
+                if (isActive) {
+                    setVisitCount(fallbackCount());
+                }
+            }
+        };
+
+        syncVisitCount();
+
+        return () => {
+            isActive = false;
+        };
+    }, []);
 
     useEffect(() => {
         const updateViewport = () => {
@@ -1501,6 +1547,16 @@ export default function App() {
             {/* =================================================
                 WHATSAPP FLUTUANTE
             ================================================= */}
+
+            <div
+                className="visit-counter"
+                aria-live="polite"
+                aria-label={`${visitCount} visitas ao site`}
+            >
+                <Eye size={14} />
+                <span>{visitCount.toLocaleString("pt-BR")}</span>
+                <small>visitas</small>
+            </div>
 
             <a
                 className="floating"
