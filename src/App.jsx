@@ -1548,7 +1548,7 @@ export default function App() {
                 WHATSAPP FLUTUANTE
             ================================================= */}
 
-            <div
+            {/* <div
                 className="visit-counter"
                 aria-live="polite"
                 aria-label={`${visitCount} visitas ao site`}
@@ -1556,7 +1556,7 @@ export default function App() {
                 <Eye size={14} />
                 <span>{visitCount.toLocaleString("pt-BR")}</span>
                 <small>visitas</small>
-            </div>
+            </div> */}
 
             <a
                 className="floating"
