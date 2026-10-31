@@ -1181,7 +1181,7 @@ export default function App() {
                 </div> */}
             </section>
 
-            <section className="comparison section">
+            {/* <section className="comparison section">
                 <div className="comparison-grid">
                     <article className="comparison-card comparison-card-base">
                         <h3>Assinando separadamente</h3>
@@ -1241,8 +1241,7 @@ export default function App() {
                         <div className="comparison-price-box">
                             <span>Acesso a tudo isso por apenas:</span>
                             <strong>R$ 35,00</strong>
-                            {/* <small>Economia de R$ 392,65 no primeiro mês</small>
-                            <small>Depois, economia de R$ 375,20/mês.</small> */}
+                       
                         </div>
                     </article>
                 </div>
@@ -1250,13 +1249,13 @@ export default function App() {
                 <p className="comparison-footnote">
                     Comparativo com preços mensais de referência, sujeitos a alteração pelos respectivos serviços.
                 </p>
-            </section>
+            </section> */}
 
             {/* =================================================
                 TESTE GRÁTIS
             ================================================= */}
 
-            <section className="trial">
+            {/* <section className="trial">
                 <div className="trial-icon" aria-hidden="true">
                     <Clock3 size={38} />
                 </div>
@@ -1283,177 +1282,7 @@ export default function App() {
                         Solicitar Teste Grátis
                     </ActionLink>
                 </div>
-            </section>
-
-            {/* =================================================
-                DISPOSITIVOS
-            ================================================= */}
-
-            <section className="devices section">
-                <SectionTitle subtitle="Compatível com as principais marcas e sistemas">
-                    Assista em qualquer dispositivo
-                </SectionTitle>
-
-                <div className="device-row">
-                    {[
-                        [Tv, "Smart TV"],
-                        [Monitor, "TV Box"],
-                        [Smartphone, "Smartphone"],
-                        [Tablet, "Tablet"],
-                        [Laptop, "Notebook"],
-                        [Monitor, "Computador"],
-                        [Gamepad2, "Xbox"],
-                        [Tv, "Fire TV"],
-                    ].map(([Icon, label]) => (
-                        <div key={String(label)}>
-                            <Icon />
-                            <span>{String(label)}</span>
-                        </div>
-                    ))}
-                </div>
-
-                {/* <div className="tv-brand-section">
-                    <h2 className="tv-brand-title">
-                        Escolha a marca da sua televisão
-                    </h2>
-
-                    <p className="tv-brand-subtitle">
-                        Veja exemplos de modelos compatíveis com o
-                        Amigo Flix
-                    </p>
-
-                    <div className="tv-brand-carousel">
-                        <button
-                            className="carousel-arrow"
-                            aria-label="Marca anterior"
-                            onClick={() =>
-                                scrollBrandCarousel(-1)
-                            }
-                        >
-                            <ChevronLeft />
-                        </button>
-
-                        <div
-                            ref={brandCarouselRef}
-                            className="brand-cards"
-                        >
-                            {visibleBrands.map((item, index) => {
-                                const actualIndex =
-                                    (brand + index) % brands.length;
-
-                                return (
-                                    <button
-                                        ref={(node) => {
-                                            brandRefs.current[actualIndex] =
-                                                node;
-                                        }}
-                                        key={`${item.name}-${actualIndex}`}
-                                        className={
-                                            brand === actualIndex
-                                                ? "brand-card active"
-                                                : "brand-card"
-                                        }
-                                        onClick={() =>
-                                            focusBrand(actualIndex)
-                                        }
-                                    >
-                                        <div className="brand-card-icon">
-                                            <Tv size={28} />
-                                        </div>
-
-                                        <div className="brand-card-name">
-                                            {item.name}
-                                        </div>
-
-                                        <div className="brand-card-os">
-                                            {item.os}
-                                        </div>
-                                    </button>
-                                );
-                            })}
-                        </div>
-
-                        <button
-                            className="carousel-arrow"
-                            aria-label="Próxima marca"
-                            onClick={() =>
-                                scrollBrandCarousel(1)
-                            }
-                        >
-                            <ChevronRight />
-                        </button>
-                    </div>
-
-                    <div className="models-panel">
-                        <div className="models-panel-header">
-                            <div>
-                                <span className="models-panel-kicker">
-                                    MODELOS COMPATÍVEIS
-                                </span>
-
-                                <h3>
-                                    <span className="panel-brand">
-                                        {brands[brand].name}
-                                    </span>
-                                </h3>
-                            </div>
-
-                            <ActionLink
-                                secondary
-                                message="Olá, vim pelo site e quero verificar se minha TV é compatível com o Amigo Flix."
-                            >
-                                Verificar minha TV
-                            </ActionLink>
-                        </div>
-
-                        <div className="model-list">
-                            {brands[brand].models.map((model) => (
-                                <div
-                                    className="model-item"
-                                    key={model}
-                                >
-                                    <Check size={18} />
-                                    <span>{model}</span>
-                                </div>
-                            ))}
-                        </div>
-
-                        <p className="models-panel-footer">
-                            Instalação pela loja de apps da própria TV,
-                            sem aparelho extra.
-                        </p>
-                    </div>
-                </div> */}
-            </section>
-
-            {/* =================================================
-                VANTAGENS
-            ================================================= */}
-
-            <section className="advantages">
-                <h2>
-                    VANTAGENS QUE
-                    <br />
-                    <em>VOCÊ SÓ ENCONTRA AQUI!</em>
-                </h2>
-
-                <div>
-                    {[
-                        "Sem Antena",
-                        "Sem Contrato",
-                        "Sem Fidelidade",
-                        "Sem Multa",
-                        "Preço Acessível",
-                        "Qualidade de Sinal",
-                        "Instalação 100% Remota",
-                        "Suporte Garantido",
-                    ].map((item) => (
-                        <span key={item}>
-                            <Check /> {item}
-                        </span>
-                    ))}
-                </div>
-            </section>
+            </section> */}
 
             {/* =================================================
                 FAQ
@@ -1489,33 +1318,7 @@ export default function App() {
                 </div>
             </section>
 
-            {/* =================================================
-                DEPOIMENTOS
-            ================================================= */}
-
-            <section className="testimonials section">
-                <SectionTitle
-                    eyebrow="O QUE DIZEM NOSSOS CLIENTES"
-                    subtitle="Milhares de famílias já transformaram sua experiência de entretenimento com o Amigo Flix."
-                >
-                    Depoimentos que inspiram
-                </SectionTitle>
-
-                <div className="testimonial-grid">
-                    {testimonials.map(([quote, name, city]) => (
-                        <article key={name}>
-                            <div className="stars">★★★★★</div>
-
-                            <p>“{quote}”</p>
-
-                            <h3>{name}</h3>
-
-                            <small>{city}</small>
-                        </article>
-                    ))}
-                </div>
-            </section>
-
+            
             {/* =================================================
                 FOOTER
             ================================================= */}
